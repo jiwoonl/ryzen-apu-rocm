@@ -1,0 +1,42 @@
+{
+  "shape": [
+    512,
+    512
+  ],
+  "dtype": "bf16",
+  "boundary": "host float32 input and output; weights resident; warm runs",
+  "results": {
+    "gpu": {
+      "mean_ms": 0.537447878,
+      "p50_ms": 0.41442500000000004,
+      "p95_ms": 0.9631239999999981,
+      "pipelines_per_s": 1860.645545241133,
+      "effective_gflops": 998.9264707823444,
+      "iterations": 500
+    },
+    "hybrid": {
+      "mean_ms": 1.338533506,
+      "p50_ms": 1.0146195,
+      "p95_ms": 2.685619499999999,
+      "pipelines_per_s": 747.0862668117625,
+      "effective_gflops": 401.0888854059063,
+      "iterations": 500
+    },
+    "npu_two_dispatch": {
+      "mean_ms": 4.471862322,
+      "p50_ms": 3.9627875,
+      "p95_ms": 7.223030699999991,
+      "pipelines_per_s": 223.62048023713734,
+      "effective_gflops": 120.0553311667899,
+      "iterations": 500
+    },
+    "npu_single_dispatch": {
+      "mean_ms": 0.922337552,
+      "p50_ms": 0.7799275,
+      "p95_ms": 1.6098790999999988,
+      "pipelines_per_s": 1084.2017630439057,
+      "effective_gflops": 582.0763893173895,
+      "iterations": 500
+    }
+  }
+}

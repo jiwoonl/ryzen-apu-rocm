@@ -1,0 +1,17 @@
+Original code and documentation in this repository: MIT; see LICENSE.
+
+npu_hybrid/_matmul.py, _fused_matmul_relu.py, and _two_matmul*.py derive from
+programming_examples/basic/matrix_multiplication/whole_array/whole_array.py
+in Xilinx/mlir-aie, commit ed23bba7381b6f0680775fd3b6110d9268d27f43.
+Copyright (C) 2024-2026 Advanced Micro Devices, Inc.
+These files remain Apache-2.0 WITH LLVM-exception; see third_party/MLIR-AIE-LICENSE.
+Changes: fused ReLU, two-phase single-dispatch runtime, configurable tiles,
+DMA grouping, FIFO depth, and multiple input matrices.
+
+patches/miopen-gfx1103.patch modifies ROCm/rocm-libraries commit
+39d8d60365d2272a5366f76ccb3bfba24b219eaf.
+MIOpen and Composable Kernel portions retain their upstream MIT notices;
+see third_party/MIOpen-LICENSE.md and third_party/ComposableKernel-LICENSE.
+
+ROCm, HIP, XRT, MLIR-AIE, LLVM-AIE, PyTorch, and other dependencies retain
+their own licenses. Their binary distributions are not included here.

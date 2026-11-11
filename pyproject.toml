@@ -1,0 +1,15 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ryzen-apu-rocm"
+version = "0.1.0"
+license = "MIT AND (Apache-2.0 WITH LLVM-exception)"
+license-files = ["LICENSE", "NOTICE", "third_party/*LICENSE*"]
+description = "ROCm/HIP setup and GPU/NPU experiments on a Ryzen 8840U with Radeon 780M"
+requires-python = ">=3.13,<3.14"
+dependencies = ["numpy>=2.4.6,<3", "ml-dtypes>=0.5.4"]
+
+[tool.setuptools.packages.find]
+include = ["npu_hybrid*"]

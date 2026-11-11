@@ -1,0 +1,16 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+build/
+dist/
+vendor/
+wheels/
+**/data/
+results/local/
+*.so
+*.xclbin
+*.bin
+*.elf
+*.log
+.env

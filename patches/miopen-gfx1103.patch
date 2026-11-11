@@ -1,0 +1,70 @@
+diff --git a/projects/composablekernel/CMakeLists.txt b/projects/composablekernel/CMakeLists.txt
+index b58b1764..9d70d309 100644
+--- a/projects/composablekernel/CMakeLists.txt
++++ b/projects/composablekernel/CMakeLists.txt
+@@ -424,6 +424,8 @@ endif()
+ #make sure all the targets on the list are actually supported by the current compiler
+ rocm_check_target_ids(SUPPORTED_GPU_TARGETS
+         TARGETS ${CK_GPU_TARGETS})
++# Experimental: clang targets gfx1103 but SDK target probe fails in split layout.
++set(SUPPORTED_GPU_TARGETS gfx1103)
+ 
+ message(STATUS "Building CK for the following targets: ${SUPPORTED_GPU_TARGETS}")
+ 
+@@ -836,6 +838,7 @@ else()
+     endfunction()
+ endif()
+ 
++add_compile_options(-Wno-error -w) # local experimental build
+ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/lib)
+ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/lib)
+ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/bin)
+diff --git a/projects/composablekernel/library/include/ck/library/tensor_operation_instance/gpu/grouped_convolution_forward_scale.hpp b/projects/composablekernel/library/include/ck/library/tensor_operation_instance/gpu/grouped_convolution_forward_scale.hpp
+index 317a7a62..451fd660 100644
+--- a/projects/composablekernel/library/include/ck/library/tensor_operation_instance/gpu/grouped_convolution_forward_scale.hpp
++++ b/projects/composablekernel/library/include/ck/library/tensor_operation_instance/gpu/grouped_convolution_forward_scale.hpp
+@@ -269,14 +269,14 @@ struct DeviceOperationInstanceFactory<ck::tensor_operation::device::DeviceGroupe
+             if constexpr(is_same_v<InDataType, float> && is_same_v<WeiDataType, float> &&
+                          is_same_v<OutDataType, float>)
+             {
+-#ifdef CK_ENABLE_TF32
++#if defined(CK_ENABLE_TF32) && defined(CK_USE_XDL)
+                 if constexpr(is_same_v<ComputeType, TF32>)
+                 {
+                     add_device_grouped_conv3d_fwd_xdl_scale_ndhwgc_gkzyxc_ndhwgk_f32_tf32_instances(
+                         op_ptrs);
+                 }
+ #endif
+-#ifdef CK_ENABLE_FP32
++#if defined(CK_ENABLE_FP32) && defined(CK_USE_XDL)
+                 if constexpr(is_same_v<ComputeType, float>)
+                 {
+                     add_device_grouped_conv3d_fwd_xdl_scale_ndhwgc_gkzyxc_ndhwgk_f32_instances(
+diff --git a/projects/miopen/src/ck_impl/CMakeLists.txt b/projects/miopen/src/ck_impl/CMakeLists.txt
+index 8b2ac19a..727af720 100644
+--- a/projects/miopen/src/ck_impl/CMakeLists.txt
++++ b/projects/miopen/src/ck_impl/CMakeLists.txt
+@@ -29,7 +29,7 @@ endfunction()
+ # for them. Add arches here when MIOpen adds grouped conv support for them.
+ set(_CK_SUPPORTED_ARCHS
+     gfx908 gfx90a gfx942 gfx950
+-    gfx1100 gfx1101 gfx1102
++    gfx1100 gfx1101 gfx1102 gfx1103
+     gfx1150 gfx1151 gfx1152 gfx1153
+     gfx1200 gfx1201 gfx1250
+ )
+diff --git a/projects/miopen/src/ck_impl/ck_fused_bias_activ_impl.cpp b/projects/miopen/src/ck_impl/ck_fused_bias_activ_impl.cpp
+index 3af16eee..8e173941 100644
+--- a/projects/miopen/src/ck_impl/ck_fused_bias_activ_impl.cpp
++++ b/projects/miopen/src/ck_impl/ck_fused_bias_activ_impl.cpp
+@@ -91,8 +91,10 @@ struct CKArgs
+ std::vector<DeviceConvFwdBiasReluPtr> GetConvInstances()
+ {
+     std::vector<DeviceConvFwdBiasReluPtr> conv_ptrs;
++#ifdef CK_USE_XDL
+     ck::tensor_operation::device::instance::
+         add_device_conv2d_fwd_xdl_c_shuffle_bias_relu_nhwc_kyxc_nhwk_f16_instances(conv_ptrs);
++#endif
+     return conv_ptrs;
+ }
+ 

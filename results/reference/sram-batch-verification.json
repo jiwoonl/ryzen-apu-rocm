@@ -1,0 +1,12 @@
+{
+  "1": "both backends bitwise equal to individual executions; one XRT launch",
+  "2": "both backends bitwise equal to individual executions; one XRT launch",
+  "4": "both backends bitwise equal to individual executions; one XRT launch",
+  "8": "both backends bitwise equal to individual executions; one XRT launch",
+  "16": "both backends bitwise equal to individual executions; one XRT launch",
+  "changed_input_stress_runs": 100,
+  "invalid_inputs_rejected": true,
+  "sram_runtime_tensor_arguments": 4,
+  "sram_hidden_bytes_per_core": 32768,
+  "sram_hidden_compute_cores": 16
+}

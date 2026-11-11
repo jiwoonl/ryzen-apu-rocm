@@ -1,0 +1,132 @@
+{
+  "operation": "ReLU(A@B)@D",
+  "shape": [
+    512,
+    512
+  ],
+  "dtype": "bf16",
+  "boundary": "host FP32 input/output; resident BF16 weights; warm cache; torch CPU threads=16",
+  "dram_config": {
+    "m": 32,
+    "k": 64,
+    "n": 64,
+    "depth": 2,
+    "dma_rows": 4
+  },
+  "sram_config": {
+    "m": 32,
+    "k": 64,
+    "n": 64,
+    "depth": 1
+  },
+  "results": {
+    "prior_npu_b1": {
+      "batch": 1,
+      "mean_ms": 1.3172650633333334,
+      "p50_ms": 0.8220894999999999,
+      "p95_ms": 3.619735050000001,
+      "amortized_ms_per_input": 1.3172650633333334,
+      "pipelines_per_s": 759.148654158871,
+      "samples": 300
+    },
+    "gpu_b1": {
+      "batch": 1,
+      "mean_ms": 0.6430137633333334,
+      "p50_ms": 0.41281900000000005,
+      "p95_ms": 1.5906756500000017,
+      "amortized_ms_per_input": 0.6430137633333334,
+      "pipelines_per_s": 1555.1766649847084,
+      "samples": 300
+    },
+    "dram_b1": {
+      "batch": 1,
+      "mean_ms": 0.63160292,
+      "p50_ms": 0.613447,
+      "p95_ms": 0.7641801,
+      "amortized_ms_per_input": 0.63160292,
+      "pipelines_per_s": 1583.2732375588132,
+      "samples": 300
+    },
+    "sram_b1": {
+      "batch": 1,
+      "mean_ms": 0.7807675,
+      "p50_ms": 0.763199,
+      "p95_ms": 0.9408960500000001,
+      "amortized_ms_per_input": 0.7807675,
+      "pipelines_per_s": 1280.79101653181,
+      "samples": 300
+    },
+    "dram_b2": {
+      "batch": 2,
+      "mean_ms": 1.1302165766666668,
+      "p50_ms": 1.093647,
+      "p95_ms": 1.34325265,
+      "amortized_ms_per_input": 0.5651082883333334,
+      "pipelines_per_s": 1769.5723468315907,
+      "samples": 300
+    },
+    "sram_b2": {
+      "batch": 2,
+      "mean_ms": 1.36739625,
+      "p50_ms": 1.3358835,
+      "p95_ms": 1.58025195,
+      "amortized_ms_per_input": 0.683698125,
+      "pipelines_per_s": 1462.6338195676635,
+      "samples": 300
+    },
+    "dram_b4": {
+      "batch": 4,
+      "mean_ms": 2.2169649966666665,
+      "p50_ms": 2.16118,
+      "p95_ms": 2.5793542,
+      "amortized_ms_per_input": 0.5542412491666666,
+      "pipelines_per_s": 1804.2684507938684,
+      "samples": 300
+    },
+    "sram_b4": {
+      "batch": 4,
+      "mean_ms": 2.84246924,
+      "p50_ms": 2.8237445,
+      "p95_ms": 3.2200529500000004,
+      "amortized_ms_per_input": 0.71061731,
+      "pipelines_per_s": 1407.227189554389,
+      "samples": 300
+    },
+    "dram_b8": {
+      "batch": 8,
+      "mean_ms": 4.582375413333334,
+      "p50_ms": 4.560259,
+      "p95_ms": 4.94512065,
+      "amortized_ms_per_input": 0.5727969266666667,
+      "pipelines_per_s": 1745.8194229836358,
+      "samples": 300
+    },
+    "sram_b8": {
+      "batch": 8,
+      "mean_ms": 5.558996133333333,
+      "p50_ms": 5.538493,
+      "p95_ms": 5.90105445,
+      "amortized_ms_per_input": 0.6948745166666667,
+      "pipelines_per_s": 1439.1087541920938,
+      "samples": 300
+    },
+    "dram_b16": {
+      "batch": 16,
+      "mean_ms": 12.4412931,
+      "p50_ms": 11.611159,
+      "p95_ms": 17.289240900000003,
+      "amortized_ms_per_input": 0.77758081875,
+      "pipelines_per_s": 1286.0399535157644,
+      "samples": 300
+    },
+    "sram_b16": {
+      "batch": 16,
+      "mean_ms": 14.0636127,
+      "p50_ms": 13.5775475,
+      "p95_ms": 16.722970399999998,
+      "amortized_ms_per_input": 0.87897579375,
+      "pipelines_per_s": 1137.6877578547083,
+      "samples": 300
+    }
+  }
+}

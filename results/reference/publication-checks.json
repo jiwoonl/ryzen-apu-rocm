@@ -1,0 +1,61 @@
+{
+  "environment": "environment.json",
+  "checks": [
+    {
+      "test": "gpu_ops.py",
+      "passed": true,
+      "seconds": 4.033,
+      "stdout": "torch 2.14.0+rocm10.1.0 HIP 7.16.26385 device AMD Radeon 780M Graphics\nFP32 matrix: PASS max error=7.62939e-05\nFP16 matrix: PASS max error=0.03125\nconvolution: PASS max error=3.8147e-06\nbackprop input: PASS max error=1.11759e-08\nbackprop weights: PASS max error=1.78814e-07\nFFT: PASS max error=1.52588e-05\ntorchvision NMS: PASS\nALL PASS\n"
+    },
+    {
+      "test": "gpu_models.py",
+      "passed": true,
+      "seconds": 5.055,
+      "stdout": "PyTorch: 2.14.0+rocm10.1.0 device: AMD Radeon 780M Graphics\nRunning ResNet18 FP32 inference ...\nResNet18 FP32 inference PASS output max error=1.49012e-06\nRunning MobileNetV3 small FP32 inference ...\nMobileNetV3 small FP32 inference PASS output max error=6.66134e-16\nRunning SqueezeNet FP16 inference ...\nSqueezeNet FP16 inference PASS output max error=0.000795335\nRunning ResNet18 FP32 training ...\nResNet18 FP32 training PASS output max error=5.72205e-06\nRunning Transformer encoder FP32 training ...\nTransformer encoder FP32 training PASS output max error=4.76837e-07\nMODEL TESTS PASS\n"
+    },
+    {
+      "test": "npu.py",
+      "passed": true,
+      "seconds": 24.133,
+      "stdout": "checking batch 1\nbackend dram\nbackend sram\nchecking batch 2\nbackend dram\nbackend sram\nchecking batch 4\nbackend dram\nbackend sram\nchecking batch 8\nbackend dram\nbackend sram\nchecking batch 16\nbackend dram\nbackend sram\n{\n  \"1\": \"both backends bitwise equal to individual executions; one XRT launch\",\n  \"2\": \"both backends bitwise equal to individual executions; one XRT launch\",\n  \"4\": \"both backends bitwise equal to individual executions; one XRT launch\",\n  \"8\": \"both backends bitwise equal to individual executions; one XRT launch\",\n  \"16\": \"both backends bitwise equal to individual executions; one XRT launch\",\n  \"changed_input_stress_runs\": 100,\n  \"invalid_inputs_rejected\": true,\n  \"sram_runtime_tensor_arguments\": 4,\n  \"sram_hidden_bytes_per_core\": 32768,\n  \"sram_hidden_compute_cores\": 16\n}\n"
+    },
+    {
+      "test": "unified_api.py",
+      "passed": true,
+      "seconds": 3.229,
+      "stdout": "input 1 NPU+GPU max error 0.0032096877694129944 NPU-only max error 0.003224998712539673\ninput 2 NPU+GPU max error 0.0032322853803634644 NPU-only max error 0.003429524600505829\ninput 3 NPU+GPU max error 0.0036538690328598022 NPU-only max error 0.0031655877828598022\ninvalid shape rejected\nautograd input rejected\nUNIFIED API PASS\n"
+    },
+    {
+      "test": "legacy_npu.py",
+      "passed": true,
+      "seconds": 3.137,
+      "stdout": "100 changed-input runs: PASS; exactly one actual XRT launch per call\n12 outputs bitwise identical to two-dispatch implementation\n{\n  \"runs\": 100,\n  \"bitwise_comparisons\": 12,\n  \"actual_xrt_launches_per_forward\": 1,\n  \"old_xrt_launches_per_forward\": 2,\n  \"max_relative_l2_vs_cpu\": 0.04090132564306259,\n  \"invalid_inputs_rejected\": true\n}\n"
+    },
+    {
+      "test": "unified_stress.py",
+      "passed": true,
+      "seconds": 3.469,
+      "stdout": "iterations 20 PASS\niterations 40 PASS\niterations 60 PASS\niterations 80 PASS\niterations 100 PASS\nUNIFIED STRESS PASS\n"
+    },
+    {
+      "test": "gpu_training.py",
+      "passed": true,
+      "seconds": 14.096,
+      "stdout": "GPU: AMD Radeon 780M Graphics torch: 2.14.0+rocm10.1.0\nMNIST epoch 1: train_loss=0.9823 test_acc=89.10% (1782/2000) elapsed=1.9s\nMNIST epoch 2: train_loss=0.2873 test_acc=93.10% (1862/2000) elapsed=3.2s\nMNIST epoch 3: train_loss=0.1955 test_acc=94.30% (1886/2000) elapsed=4.5s\nMNIST GPU-CPU max abs error: 9.775161743164062e-06\nSynthetic regression step 1: mse=19.75789452\nSynthetic regression step 50: mse=0.16461046\nSynthetic regression step 100: mse=0.00078861\nSynthetic regression step 200: mse=0.00000001\nTRAINING TESTS PASSED\n"
+    },
+    {
+      "test": "gpu_stability.py",
+      "passed": true,
+      "seconds": 19.873,
+      "stdout": "PyTorch 2.14.0+rocm10.1.0 HIP 7.16.26385 GPU AMD Radeon 780M Graphics\nSTART EfficientNet-B0 FP32\n  max_abs_error 6.140988867593677e-20\nPASS EfficientNet-B0 FP32 seconds 0.54\nSTART DenseNet121 FP32\n  max_abs_error 1.430511474609375e-06\nPASS DenseNet121 FP32 seconds 0.18\nSTART ShuffleNetV2 FP32\n  max_abs_error 3.725290298461914e-09\nPASS ShuffleNetV2 FP32 seconds 0.06\nSTART VGG11 FP32\n  max_abs_error 2.421438694000244e-07\nPASS VGG11 FP32 seconds 1.18\nSTART MobileNetV3 FP16\n  max_abs_error 8.114984795248859e-10\nPASS MobileNetV3 FP16 seconds 0.19\nSTART ViT-B/16 FP32\n  max_abs_error 4.887580871582031e-06\nPASS ViT-B/16 FP32 seconds 1.71\nSTART LSTM inference\nPASS LSTM inference seconds 0.09\nSTART Scaled dot product attention\nPASS Scaled dot product attention seconds 0.01\nSTART MobileNet repeated inference x2000\n  iteration 400 allocated MiB 42.2\n  iteration 800 allocated MiB 42.2\n  iteration 1200 allocated MiB 42.2\n  iteration 1600 allocated MiB 42.2\n  iteration 2000 allocated MiB 42.2\n  allocated change MiB 0.0\nPASS MobileNet repeated inference x2000 seconds 8.07\nSTART ResNet18 training x200\n  step 50 loss 0.03751 allocated MiB 151.3\n  step 100 loss 0.02052 allocated MiB 151.3\n  step 150 loss 0.01436 allocated MiB 151.3\n  step 200 loss 0.01114 allocated MiB 151.3\nPASS ResNet18 training x200 seconds 3.36\nFAILED: []\nALL STABILITY TESTS PASS\n"
+    }
+  ],
+  "additional_checks": [
+    "Fresh PyXRT build: import after torch and NPU device open passed",
+    "Peano wheel tag and RECORD repair passed on an archive fixture",
+    "Conda activation/deactivation restored PATH, LD_LIBRARY_PATH, MIOPEN_USER_DB_PATH and XILINX_XRT in bash and zsh",
+    "Python package wheel built with third-party license files",
+    "MIOpen patch reverse-check passed against the tested source checkout"
+  ],
+  "clean_install_rerun": false
+}
