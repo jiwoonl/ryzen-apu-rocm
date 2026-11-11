@@ -35,10 +35,10 @@ ThinkPad T14 Gen 5 AMD (`21MCCTO1WW`), captured at publication:
 | CPU | Ryzen 7 PRO 8840U, 8 cores / 16 threads |
 | GPU | Radeon 780M, `gfx1103` |
 | NPU | XDNA1 / `RyzenAI-npu1`, `aie2` |
-| RAM | About 30 GiB usable, shared by CPU/GPU/NPU |
+| RAM | 32 GB, shared by CPU/GPU/NPU |
 | OS | Fedora 45 KDE, x86_64; glibc 2.44 |
 | Kernel | `7.3.3-300.fc45.x86_64` |
-| Python | 3.13.18, conda environment `rocm` |
+| Python | 3.13.18, conda |
 | Fedora HIP / rocminfo | 7.2.2 / 7.2.0 |
 | Python ROCm SDK | 10.1.0, native `gfx1103` device packages |
 | PyTorch | `2.14.0+rocm10.1.0` |
@@ -54,10 +54,12 @@ The Fedora HIP packages provide host tools; PyTorch uses its own pinned ROCm SDK
 
 See [setup](docs/setup.md) for the GPU stack, CK plugin build, conda hooks, XRT, PyXRT, and MLIR loader fix. This records one working machine; it is not a support matrix for every Ryzen APU.
 
+Use any Python 3.13 conda environment. The name `apu` below is just an example; the setup scripts use the active environment. Create one with `conda env create -n apu -f environment.yml`, then follow [setup](docs/setup.md).
+
 After setup, from the repository root:
 
 ```sh
-conda activate rocm
+conda activate apu
 python -m pip install --no-deps -e .
 python tests/gpu_ops.py
 python tests/gpu_models.py

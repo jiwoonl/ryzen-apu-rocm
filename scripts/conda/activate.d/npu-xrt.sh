@@ -1,4 +1,4 @@
-# NPU XRT tools for the rocm environment; retain the caller's previous setting.
+# NPU XRT tools for the active conda environment; retain the caller's previous setting.
 export _NPU_XRT_PREV_SET="${XILINX_XRT+x}"
 export _NPU_XRT_PREV="${XILINX_XRT-}"
 export XILINX_XRT="$HOME/.local/opt/xrt"

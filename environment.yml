@@ -1,0 +1,7 @@
+# Choose a name when creating the environment: conda env create -n apu -f environment.yml
+channels:
+  - conda-forge
+dependencies:
+  - python=3.13
+  - pip
+  - setuptools>=77

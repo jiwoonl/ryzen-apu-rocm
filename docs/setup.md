@@ -20,15 +20,17 @@ For an existing Miniconda installation, add this to `~/.zshrc` if you want PATH 
 export PATH="$HOME/miniconda3/bin:$PATH"
 ```
 
-Then initialize only the current shell and create the environment:
+Then initialize only the current shell and create an environment. Pick any name; `apu` is an example. An existing environment with Python 3.13 also works.
 
 ```sh
 eval "$(conda shell.zsh hook)"
-conda create -n rocm python=3.13 pip
-conda activate rocm
+conda env create -n apu -f environment.yml
+conda activate apu
 python -m pip install --index-url https://stable.repo.amd.com/rocm/whl-next/ \
   -r requirements-rocm.txt
 ```
+
+`environment.yml` has no fixed environment name and installs only Python/build tooling. Install the ROCm wheels after activating your chosen environment. Hooks are installed under its `CONDA_PREFIX`; no environment named `rocm` is required.
 
 The requirements select `device-gfx1103` for torch, torchvision, and the ROCm SDK. Do not substitute a `gfx1100` override. Wheel indexes change; if the pinned build leaves the stable index, check [TheRock releases](https://github.com/ROCm/TheRock/blob/main/RELEASES.md) or the [nightly index](https://nightly.repo.amd.com/rocm/whl-next/) for the same versions. The full ROCm/Torch pins must resolve together.
 
@@ -52,7 +54,7 @@ export ROCM_DEVEL="$PWD/build/ck-env/lib/python3.13/site-packages/_rocm_sdk_deve
 BUILD_JOBS=16 bash scripts/build_ck.sh "$PWD/vendor/rocm-libraries"
 python scripts/install_conda_hooks.py
 conda deactivate
-conda activate rocm
+conda activate apu
 python tests/gpu_ops.py
 python tests/gpu_models.py
 ```

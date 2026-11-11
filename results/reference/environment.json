@@ -33,5 +33,6 @@
   "xdna_driver_source_commit": "5599041841d8522e8f206b6fc55e0230f8cac915",
   "miopen_source_commit": "39d8d60365d2272a5366f76ccb3bfba24b219eaf",
   "mlir_aie_source_commit": "ed23bba7381b6f0680775fd3b6110d9268d27f43",
-  "source_revision_note": "Pinned reference sources; scripts do not infer local source revisions."
+  "source_revision_note": "Pinned reference sources; scripts do not infer local source revisions.",
+  "installed_memory_gb": 32
 }
