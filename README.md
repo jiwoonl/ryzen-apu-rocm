@@ -17,7 +17,7 @@ ROCm/HIP on a Ryzen 7 PRO 8840U and Radeon 780M (`gfx1103`), with XDNA1 NPU expe
 | NPU, tuned | 8 | 4.582 | 4.560 | 4.945 | 1,746 |
 | NPU, tuned | 16 | 12.441 | 11.611 | 17.289 | 1,286 |
 
-Latency is for the whole batch; one input is one complete two-matmul pipeline. Desktop scheduling affected the tails. [Full results](results/reference/sram-batch-benchmark-results.json) include both NPU backends at every batch size.
+Latency is for the whole batch; one input is one complete two-matmul pipeline. Desktop scheduling affected the tails. [Full results](docs/results.md) include both NPU backends at every batch size.
 
 - Both NPU matmuls and ReLU run in **one actual XRT launch**, including batched inputs.
 - The default uses shared-memory scratch. The SRAM version keeps 32 KiB per compute core across 16 cores, but needs more input/weight traffic and was slower here.
